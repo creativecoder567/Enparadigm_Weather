@@ -1,6 +1,6 @@
 # Enparadigm Weather
 
-Programming test for ios and android
+Programming test for iOS and Android
 
 ## Intro
 You'll make a simple Weather App for a given city. The app should be available offline and should give current weather, the forecast, and additional informations such as wind, pressure, humidity, etc. 
