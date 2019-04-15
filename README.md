@@ -11,7 +11,7 @@ Take the time you want (or can…) based on a good ratio between productivity an
 
 ## Minimum requirements:
 - iOS 12 & Swift
-- Android API 21 (5.0 Lollipop) Kotlin
+- Android API 21 (5.0 Lollipop)
 
 ## Coding rules & resources
 - You are free to use any framework or library as long as their licence is free
