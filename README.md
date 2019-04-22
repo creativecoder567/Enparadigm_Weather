@@ -7,7 +7,7 @@ You'll make a simple Weather App for a given city. The app should be available o
 
 You can use other libraries to speed up the development process and you should make regular commit (be sure to have proper commit comments).
 
-Take the time you want (or can…) based on a good ratio between productivity and over-engineered product. Do not spend more than 2 days on that!!
+Take the time you want (or can…) based on a good ratio between productivity and over-engineered product.
 
 ## Minimum requirements:
 - iOS 12 & Swift
