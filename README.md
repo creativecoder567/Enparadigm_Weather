@@ -1,17 +1,21 @@
 # Enparadigm Weather
 
-Programming test for iOS and Android
-
 ## Intro
 You'll make a simple Weather App for a given city. The app should be available offline and should give current weather, the forecast, and additional informations such as wind, pressure, humidity, etc. 
 
 You can use other libraries to speed up the development process and you should make regular commit (be sure to have proper commit comments).
 
-Take the time you want (or can…) based on a good ratio between productivity and over-engineered product.
+Take the time you want (or can…) based on a good ratio between productivity and over-engineered product. Do not spend more than 2 days on that!!
 
 ## Minimum requirements:
-- iOS 12 & Swift
-- Android API 21 (5.0 Lollipop)
+- iOS 13 & Swift
+- Android API 21 (5.0 Lollipop) Kotlin
+- Flutter 1.17
+
+## Git
+- Git repository is mandatory, either create public or local. You need to share the project with git.
+- Commit the empty project first and then commit all significant changes. 
+- Do not have just one big commit with everything in the porject.
 
 ## Coding rules & resources
 - You are free to use any framework or library as long as their licence is free
