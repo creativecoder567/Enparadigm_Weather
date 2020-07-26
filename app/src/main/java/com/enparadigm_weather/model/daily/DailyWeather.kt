@@ -1,6 +1,6 @@
 package com.enparadigm_weather.model.daily
 
-data class Daily(
+data class DailyWeather(
     val city_name: String,
     val country_code: String,
     val `data`: List<Data>,

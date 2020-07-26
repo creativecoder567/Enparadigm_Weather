@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Enparadigm_Weather</string>
 
+    <string name="weather">Weather</string>
     <!--Navigation Menu-->
     <string name="settings">Settings</string>
 
