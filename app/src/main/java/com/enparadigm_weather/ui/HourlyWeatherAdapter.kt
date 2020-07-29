@@ -28,7 +28,7 @@ class HourlyWeatherAdapter(
     private var hourlyWeatherViewHolder: HourlyWeatherViewHolder? = null
     private var hourlyWeatherListViewHolder: HourlyWeatherListViewHolder? =
         null
-
+    var i = 0
     init {
         inflater = LayoutInflater.from(context)
         this.data = data
@@ -80,14 +80,16 @@ class HourlyWeatherAdapter(
             @SuppressLint("SimpleDateFormat") val f =
                 SimpleDateFormat("yyy-MM-dd:HH")
             try {
-                date = f.parse(hourlyDatum.datetime)
+                /*no free call for hourly based api*/
+//                date = f.parse(hourlyDatum.datetime)
                 @SuppressLint("SimpleDateFormat") val now =
-                    SimpleDateFormat("h aa").format(date)
+                    SimpleDateFormat("h aa").format(System.currentTimeMillis())
                 textViewTime!!.text = now
+                i++
             } catch (e: ParseException) {
                 e.printStackTrace()
             }
-            textViewTemperature?.setText(BindingUtils.convertDegree(hourlyDatum.max_temp.toFloat()))
+            textViewTemperature?.setText(BindingUtils.convertDegree(hourlyDatum.temp.toFloat()))
             imageViewIcon!!.setImageDrawable(
                 BindingUtils.getWeatherIcon(
                     context,
@@ -108,7 +110,7 @@ class HourlyWeatherAdapter(
 
         var textViewWindDirection: TextView? = null
         fun bindView(hourlyDatum: Data) {
-            var date: Date? = null
+            var date: Date?
             @SuppressLint("SimpleDateFormat") val f =
                 SimpleDateFormat("yyy-MM-dd:HH")
             try {
@@ -119,9 +121,9 @@ class HourlyWeatherAdapter(
             } catch (e: ParseException) {
                 e.printStackTrace()
             }
-            textViewWeatherTemperature?.setText(BindingUtils.convertDegree(hourlyDatum.app_min_temp.toFloat()))
+            textViewWeatherTemperature?.setText(BindingUtils.convertDegree(hourlyDatum.temp.toFloat()))
             textViewWindDirection?.setText(
-                hourlyDatum.wind_cdir.toString() + " " + hourlyDatum.wind_spd
+                hourlyDatum.wind_cdir + " " + hourlyDatum.wind_spd
                         + " m/s"
             )
             imageViewWeatherIcon!!.setImageDrawable(

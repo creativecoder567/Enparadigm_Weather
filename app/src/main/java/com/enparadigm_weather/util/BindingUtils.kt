@@ -12,13 +12,9 @@ import java.util.*
 class BindingUtils {
 
 
-    public companion object {
+    companion object {
 
         private val degree = '\u00b0'
-
-        fun concatString(one: String?, two: String?): String? {
-            return if (one != null && two != null) "$one, $two" else ""
-        }
 
         fun getWeatherIcon(context: Context, code: String?): Drawable? {
             return when (code) {
