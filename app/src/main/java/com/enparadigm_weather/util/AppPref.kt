@@ -45,7 +45,7 @@ class AppPref(context: Context) {
 
     }
 
-    fun getString(key: String?): String? {
+    fun getString(key: String?, nothing: Nothing?): String? {
         return sharedPreferences.getString(key, "")
     }
 

@@ -13,7 +13,7 @@ data class Data(
     val low_temp: Double,
     val max_dhi: Any,
     val max_temp: Double,
-    val min_temp: Int,
+    val min_temp: Double,
     val moon_phase: Double,
     val moon_phase_lunation: Double,
     val moonrise_ts: Int,

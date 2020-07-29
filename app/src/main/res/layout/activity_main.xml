@@ -3,9 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+<data>
 
+    <variable
+        name="weather"
+        type="com.enparadigm_weather.model.daily.DailyWeather" />
+
+    <variable
+        name="data"
+        type="com.enparadigm_weather.model.daily.Data" />
+
+    <import type="com.enparadigm_weather.util.BindingUtils" />
+</data>
     <androidx.drawerlayout.widget.DrawerLayout
-        android:id="@+id/drawer_layout"
+        android:id="@+id/mDrawerLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true">
@@ -23,25 +34,26 @@
                 tools:context=".ui.MainActivity">
 
                 <androidx.appcompat.widget.Toolbar
-                    android:id="@+id/tool_bar"
+                    android:id="@+id/toolbar"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
                     android:background="@drawable/toolbar_background"
                     android:elevation="@dimen/spacing_4"
                     android:gravity="center"
-                    android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+                    android:theme="@style/ThemeOverlay.MaterialComponents.ActionBar"
                     app:contentInsetLeft="0dp"
                     app:contentInsetStart="0dp"
                     app:contentInsetStartWithNavigation="0dp"
                     app:layout_constraintEnd_toStartOf="@+id/guideline2"
                     app:layout_constraintStart_toStartOf="@+id/guideline"
                     app:layout_constraintTop_toTopOf="@+id/guideline3"
-                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+                    app:popupTheme="@style/ThemeOverlay.MaterialComponents.Light">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="start"
+                        android:text="@{weather.city_name.concat(weather.country_code)}"
                         android:textColor="@color/black"
                         android:textSize="@dimen/text_large" />
 
@@ -54,6 +66,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
                     android:textSize="@dimen/text_header"
+                    android:text="@{String.valueOf(data.temp)}"
                     app:layout_constraintStart_toStartOf="@+id/guideline"
                     app:layout_constraintTop_toTopOf="@+id/guideline4" />
 
@@ -68,6 +81,7 @@
                     android:id="@+id/weather_description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="@{data.weather.description}"
                     android:textColor="@color/white"
                     android:textSize="@dimen/text_large"
                     app:layout_constraintStart_toStartOf="@+id/guideline"
@@ -79,6 +93,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
                     android:textSize="@dimen/text_small"
+                    android:text="@{weather.city_name.concat(weather.country_code)}"
                     app:layout_constraintStart_toStartOf="@+id/guideline"
                     app:layout_constraintTop_toBottomOf="@+id/weather_description" />
 
@@ -128,6 +143,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <androidx.recyclerview.widget.RecyclerView
+                        tools:listitem="@layout/adapter_daily_weather_item"
                         android:id="@+id/hourly_weather_report"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -244,7 +260,7 @@
 
 
         <com.google.android.material.navigation.NavigationView
-            android:id="@+id/navigation"
+            android:id="@+id/mNavigationView"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="start"
