@@ -60,49 +60,11 @@ class DailyWeatherAdapter(
             dailyWeatherViewHolder!!.bindView(dailyDatum)
         }
     }
-/*
-    @NonNull
-    fun onCreateViewHolder(@NonNull parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
-        return if (isListView) {
-            val view: View =
-                inflater.inflate(R.layout.adapter_daily_weather_list_item, parent, false)
-            DailyWeatherListViewHolder(view)
-        } else {
-            val view: View =
-                inflater.inflate(R.layout.adapter_daily_weather_item, parent, false)
-            DailyWeatherViewHolder(view)
-        }
-    }
 
-    fun onBindViewHolder(@NonNull holder: RecyclerView.ViewHolder, position: Int) {
-        val dailyDatum: Data = data[holder.getAdapterPosition()]
-        if (isListView) {
-            dailyWeatherListViewHolder = holder
-            dailyWeatherListViewHolder!!.bindView(dailyDatum)
-        } else {
-            dailyWeatherViewHolder = holder
-            dailyWeatherViewHolder!!.bindView(dailyDatum)
-        }
-    }
-
-    val itemCount: Int
-        get() = data.size
-*/
 
 
     internal inner class DailyWeatherViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView) {
-        /* @BindView(R.id.day)
-       var textViewTime: TextView? = null
-
-       @BindView(R.id.max_temperature)
-       var textViewMaxTemperature: TextView? = null
-
-       @BindView(R.id.min_temperature)
-       var textViewMinTemperature: TextView? = null
-
-       @BindView(R.id.icon)
-       var imageViewIcon: ImageView? = null*/
         var textViewTime: TextView? = itemView.findViewById(R.id.day)
         var textViewMaxTemperature: TextView? = itemView.findViewById(R.id.max_temperature)
         var textViewMinTemperature: TextView? = itemView.findViewById(R.id.min_temperature)
@@ -133,31 +95,22 @@ class DailyWeatherAdapter(
 
     internal inner class DailyWeatherListViewHolder(view: View?) :
         RecyclerView.ViewHolder(view!!) {
-        //        @BindView(R.id.day)
         var textViewTime: TextView? = view?.findViewById(R.id.day)
 
-        //        @BindView(R.id.max_temperature)
         var textViewMaxTemperature: TextView? = view?.findViewById(R.id.max_temperature)
 
-        //        @BindView(R.id.min_temperature)
         var textViewMinTemperature: TextView? = view?.findViewById(R.id.min_temperature)
 
-        //        @BindView(R.id.icon)
         var imageViewIcon: ImageView? = view?.findViewById(R.id.icon)
 
-        //        @BindView(R.id.sunrise)
         var textViewSunrise: TextView? = view?.findViewById(R.id.sunrise)
 
-        //        @BindView(R.id.sunset)
         var textViewSunset: TextView? = view?.findViewById(R.id.sunset)
 
-        //        @BindView(R.id.date_month)
         var textViewDateAndMonth: TextView? = view?.findViewById(R.id.date_month)
 
-        //        @BindView(R.id.climate)
         var textViewClimate: TextView? = view?.findViewById(R.id.climate)
 
-        //        @BindView(R.id.wind_direction_speed)
         var textViewWindDirection: TextView? = view?.findViewById(R.id.wind_direction_speed)
 
         fun bindView(dailyDatum: Data) {

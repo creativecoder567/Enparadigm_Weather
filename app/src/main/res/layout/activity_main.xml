@@ -15,11 +15,7 @@
 
     <import type="com.enparadigm_weather.util.BindingUtils" />
 </data>
-    <androidx.drawerlayout.widget.DrawerLayout
-        android:id="@+id/mDrawerLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fitsSystemWindows="true">
+
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -258,6 +254,11 @@
 
         </RelativeLayout>
 
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/mDrawerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
 
         <com.google.android.material.navigation.NavigationView
             android:id="@+id/mNavigationView"

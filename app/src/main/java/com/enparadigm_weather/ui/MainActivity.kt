@@ -17,10 +17,12 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.GravityCompat
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import com.enparadigm_weather.R
 import com.enparadigm_weather.data.network.MyApi
 import com.enparadigm_weather.data.repository.Repository
+import com.enparadigm_weather.databinding.ActivityMainBinding
 import com.enparadigm_weather.model.daily.DailyWeather
 import com.enparadigm_weather.model.daily.Data
 import com.enparadigm_weather.util.BindingUtils
@@ -42,12 +44,15 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     private var mDrawerToggle: ActionBarDrawerToggle? = null
     var dailyWeather: DailyWeather? = null
     lateinit var repository: Repository
+    lateinit var binding: ActivityMainBinding
 
     private var dailyWeatherAdapter: DailyWeatherAdapter? = null
+    private var hourlyWeatherAdapter: HourlyWeatherAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+//        setContentView(R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         setSupportActionBar(toolbar)
         val interceptor = NetworkConnectionInterceptor(this)
         val api = MyApi(interceptor)
@@ -154,11 +159,11 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     }
 
     private fun searchDummy() {
-        Coroutines.main {
+        Coroutines.io {
             val response: DailyWeather = repository.searchCity("Raleigh,NC")
             Log.i("dddd", "searchDummy: " + response.city_name)
             updateDailyWeather(response)
-
+            updateHourlyWeather(response)
         }
 
     }
@@ -167,6 +172,67 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         val dailyData: List<Data> = this!!.getPresentDailyData(dailyWeather!!)!!
         setDailyWeatherHeader(dailyData[0])
         setDailyWeatherAdapter(dailyData)
+    }
+
+    private fun updateHourlyWeather(response: DailyWeather) {
+        val dailyData: List<Data> = this!!.getPresentDailyData(response!!)!!
+        binding.weather = response
+        binding.data = response.data.get(0)
+        setHeaderHourlyWeather(response.data.get(0))
+        setHourlyWeatherAdapter(dailyData)
+    }
+
+    private fun setHeaderHourlyWeather(currentHourlyWeather: Data) {
+        @SuppressLint("SimpleDateFormat") val f =
+            SimpleDateFormat("yyy-MM-dd:HH")
+        try {
+            val date = f.parse(currentHourlyWeather.datetime)
+            @SuppressLint("SimpleDateFormat") val now = SimpleDateFormat("h:mm aa").format(date)
+            runOnUiThread {
+                current_time.setText(now)
+                weather_image.setImageDrawable(
+                    BindingUtils.getWeatherIcon(
+                        this@MainActivity
+                        , currentHourlyWeather.weather.icon
+                    )
+                )
+            }
+        } catch (e: ParseException) {
+            e.printStackTrace()
+        }
+    }
+
+    private fun setHourlyWeatherAdapter(currentHourlyWeather: List<Data>) {
+        if (currentHourlyWeather.size > 0) {
+            runOnUiThread {
+                if (currentHourlyWeather.size > 6) {
+                    hourlyWeatherAdapter = HourlyWeatherAdapter(
+                        this@MainActivity,
+                        currentHourlyWeather.subList(0, 5),
+                        false
+                    )
+                } else {
+                    hourlyWeatherAdapter =
+                        HourlyWeatherAdapter(this@MainActivity, currentHourlyWeather, false)
+                }
+                hourly_weather_report.setLayoutManager(
+                    GridLayoutManager(
+                        this@MainActivity,
+                        hourlyWeatherAdapter!!.getItemCount()
+                    )
+                )
+                hourly_weather_report.setAdapter(hourlyWeatherAdapter)
+                hourly_container.setVisibility(View.VISIBLE)
+                /* constraintLayoutHourlyContainer.setOnClickListener({ view ->
+                     linearLayoutFragmentContainer.setVisibility(View.VISIBLE)
+                     val bundle = Bundle()
+                     bundle.putSerializable("data", currentHourlyWeather as Serializable)
+                     val hourlyWeatherFragment = HourlyWeatherFragment()
+                     hourlyWeatherFragment.setArguments(bundle)
+                     setFragment(hourlyWeatherFragment)
+                 })*/
+            }
+        }
     }
 
     fun getPresentDailyData(dailyWeather: DailyWeather): List<Data>? {
