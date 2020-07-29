@@ -28,7 +28,6 @@ class HourlyWeatherAdapter(
     private var hourlyWeatherViewHolder: HourlyWeatherViewHolder? = null
     private var hourlyWeatherListViewHolder: HourlyWeatherListViewHolder? =
         null
-    var i = 0
     init {
         inflater = LayoutInflater.from(context)
         this.data = data
@@ -85,7 +84,6 @@ class HourlyWeatherAdapter(
                 @SuppressLint("SimpleDateFormat") val now =
                     SimpleDateFormat("h aa").format(System.currentTimeMillis())
                 textViewTime!!.text = now
-                i++
             } catch (e: ParseException) {
                 e.printStackTrace()
             }
